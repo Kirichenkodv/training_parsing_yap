@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.9"
 requests-cache = "1.0.0"
 tqdm = "^4.67.1"
+beautifulsoup4 = "^4.12.3"
 
 
 [build-system]
