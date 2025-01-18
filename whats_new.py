@@ -1,6 +1,7 @@
 from urllib.parse import urljoin
 import requests_cache
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 WHATS_NEW_URL = "https://docs.python.org/3/whatsnew/"
 
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     #     version_link = urljoin(WHATS_NEW_URL, href)
     #     print(version_link)
 
-    for section in sections_by_python:
+    for section in tqdm(sections_by_python):
         version_a_tag = section.find("a")
         href = version_a_tag["href"]
         version_link = urljoin(WHATS_NEW_URL, href)
