@@ -35,14 +35,33 @@ if __name__ == "__main__":
     #     version_link = urljoin(WHATS_NEW_URL, href)
     #     print(version_link)
 
+    # results = []
+
+    # for section in tqdm(sections_by_python):
+    #     version_a_tag = section.find("a")
+    #     href = version_a_tag["href"]
+    #     version_link = urljoin(WHATS_NEW_URL, href)
+    #     response = session.get(version_link)
+    #     response.encoding = "utf-8"
+    #     soup = BeautifulSoup(response.text, "lxml")
+    #     h1 = soup.find("h1")
+    #     dl = soup.find("dl")
+    #     dl_text = dl.text.replace("\n", " ")
+    #     print(version_link, h1.text, dl_text)
+
+    results = []
     for section in tqdm(sections_by_python):
         version_a_tag = section.find("a")
-        href = version_a_tag["href"]
-        version_link = urljoin(WHATS_NEW_URL, href)
+        version_link = urljoin(WHATS_NEW_URL, version_a_tag["href"])
         response = session.get(version_link)
         response.encoding = "utf-8"
         soup = BeautifulSoup(response.text, "lxml")
         h1 = soup.find("h1")
         dl = soup.find("dl")
         dl_text = dl.text.replace("\n", " ")
-        print(version_link, h1.text, dl_text)
+        # Добавьте в список ссылки и текст из тегов h1 и dl в виде кортежа.
+        results.append((version_link, h1.text, dl_text))
+
+    for row in results:
+        # Распаковка каждого кортежа при печати при помощи звездочки.
+        print(*row)
